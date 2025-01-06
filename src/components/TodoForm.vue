@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-const greeting = ref('Hello World!')
+
 </script>
 
 <template>
@@ -10,8 +10,5 @@ const greeting = ref('Hello World!')
 </template>
 
 <style>
-.greeting {
-  color: red;
-  font-weight: bold;
-}
+
 </style>
