@@ -15,13 +15,8 @@ export const useTodoStore = defineStore('todo', () => {
     ])
 
     function addTodo(newTodo: string) { // todoを追加。追加ボタンをバインド
-        if(newTodo != '') { // TODO:バリデーション再考の余地
-             /**
-              * newTodo.valueを直接pushすると、追加したtodoに入力フォームのvalueが
-              * 同期されてしまうので、スプレッド演算子でコピー
-              */
-            todos.value.push({ text: newTodo, isEditing: false })
-        }
+        if (newTodo === '') return // TODO:バリデーション再考の余地
+        todos.value.push({ text: newTodo, isEditing: false })
     }
     
     function editTodo(index: number) { // todoを編集。編集ボタンにバインド
