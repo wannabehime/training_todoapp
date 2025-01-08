@@ -6,6 +6,7 @@ const todo = useTodoStore()
 
 const props = defineProps<{
     todoText: string
+    isCompleted: boolean
     index: number
 }>()
 
@@ -27,7 +28,7 @@ function completeEditTodo(index: number, userInput: string) { // todoを更新�
         <input v-model="userInput" placeholder="TODOを入力" />
         <button @click="completeEditTodo(index, userInput)">完了</button>
     </li>
-    <li v-else :style="{ textDecoration: todo.todos[index].isCompleted ? 'line-through' : 'none' }">
+    <li v-else :class="{ 'text-decoration': isCompleted }">
         {{ todoText }}
         <button @click="editTodo">編集</button>
         <button @click="todo.toggleTodo(index)">済</button>
@@ -35,5 +36,7 @@ function completeEditTodo(index: number, userInput: string) { // todoを更新�
 </template>
 
 <style>
-
+.text-decoration {
+    text-decoration: line-through;
+}
 </style>
