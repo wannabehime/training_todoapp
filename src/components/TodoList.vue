@@ -11,7 +11,8 @@ const todos = todo.todos
     <TodoItem
         v-for="(todo, index) in todos"
         :key="index"
-        :todoText="todo"
+        :todoText="todo.text"
+        :isCompleted="todo.isCompleted"
         :index="index"
         id="todo-list"
     />
