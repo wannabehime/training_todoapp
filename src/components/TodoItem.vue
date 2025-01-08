@@ -27,10 +27,10 @@ function completeEditTodo(index: number, userInput: string) { // todoを更新�
         <input v-model="userInput" placeholder="TODOを入力" />
         <button @click="completeEditTodo(index, userInput)">完了</button>
     </li>
-    <li v-else>
+    <li v-else :style="{ textDecoration: todo.todos[index].isCompleted ? 'line-through' : 'none' }">
         {{ todoText }}
         <button @click="editTodo">編集</button>
-        <button @click="todo.deleteTodo(index)">削除</button>
+        <button @click="todo.toggleTodo(index)">済</button>
     </li>
 </template>
 
