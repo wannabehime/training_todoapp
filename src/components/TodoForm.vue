@@ -9,7 +9,7 @@ const addTodo = todo.addTodo
 
 function addTodoAndFocus(newTodo: string) {
     addTodo(newTodo)
-    newTodo = '' // 不要なので入力をクリア
+    input.value = '' // 不要なので入力をクリア
     input.value.focus()
 
 }
