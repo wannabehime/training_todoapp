@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { Todo } from '@prisma/client';
 
 @Injectable()
 export class TodosService {
-  private readonly todos: string[] = ['掃除', '洗濯', '炊飯'];
+  constructor(private prisma: PrismaService) {}
 
-  getTodos(): string[] {
-    return this.todos;
+//   private readonly todos: string[] = ['掃除', '洗濯', '炊飯'];
+
+  async getTodos(): Promise<Todo[]> {
+    return this.prisma.todo.findMany();
   }
 }
