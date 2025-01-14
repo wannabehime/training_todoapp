@@ -1,0 +1,34 @@
+{
+  "service": "backend",
+  "dockerComposeFile": "../../docker-compose.yml",
+  "workspaceFolder": "/workspace/backend",
+
+  "name": "Backend Dev Container",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      },
+
+      "extensions": [
+        "donjayamanne.git-extension-pack",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "Prisma.prisma",
+        "figma.figma-vscode-extension",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "shutdownAction": "none"
+}
