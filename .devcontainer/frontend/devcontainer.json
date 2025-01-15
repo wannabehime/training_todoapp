@@ -1,0 +1,40 @@
+{
+  "service": "frontend",
+  "dockerComposeFile": "../../docker-compose.yml",
+  "workspaceFolder": "/workspace/frontend",
+
+  "name": "Frontend Dev Container",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[vue]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[css]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      },
+
+      "extensions": [
+        "donjayamanne.git-extension-pack",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "Vue.volar",
+        "vuetifyjs.vuetify-vscode",
+        "figma.figma-vscode-extension",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "shutdownAction": "none"
+}

@@ -1,6 +1,9 @@
 FROM node:23-alpine3.20
 
-WORKDIR /app
+WORKDIR /workspace/backend
+
+RUN apk update && \
+  apk add git
 
 COPY . .
 
