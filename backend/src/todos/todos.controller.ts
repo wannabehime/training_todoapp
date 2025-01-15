@@ -15,19 +15,19 @@ import { Todo } from '@prisma/client';
 export default class TodosController {
   constructor(private todosService: TodosService) {}
 
-  @Get('get')
+  @Get()
   async getTodos(): Promise<Todo[]> {
     return this.todosService.getTodos();
   }
 
-  @Post('add')
+  @Post()
   async addTodo(@Body() todoData: { title: string }): Promise<Todo> {
     return this.todosService.addTodo({
       title: todoData.title,
     });
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   async updateTodo(
     @Param('id', ParseIntPipe) id: number,
     @Body('title') title: string,
@@ -45,7 +45,7 @@ export default class TodosController {
     return this.todosService.markAsIncomplete(id);
   }
 
-  @Delete('delete/:id')
+  @Delete(':id')
   async deleteTodo(@Param('id', ParseIntPipe) id: number): Promise<Todo> {
     return this.todosService.deleteTodo(id);
   }
