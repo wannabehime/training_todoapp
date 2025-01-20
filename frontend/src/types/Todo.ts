@@ -6,6 +6,10 @@ export interface Todo {
   updatedAt: Date;
 }
 
-export type RequestTodo = Pick<Todo, "title">;
+export type TodoId = Pick<Todo, "id">;
+
+export type TodoTitle = Pick<Todo, "title">;
+
+export type TodoIdAndTitle = Pick<Todo, "id" | "title">;
 
 export type ResponseTodo = Pick<Todo, "id" | "title" | "isCompleted">;
