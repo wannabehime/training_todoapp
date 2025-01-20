@@ -1,34 +1,99 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue'
+import { defineStore } from "pinia";
+import { ref } from "vue";
+import type { ResponseTodo } from "../types/Todo";
+import { useTodosAPI } from "../composables/useTodosAPI";
 
-export type Todo= {
-    text: string;
-    isCompleted: boolean;
-};
+const {
+  getAllTodos: getAllTodosAPI,
+  addTodo: addToDoAPI,
+  updateTodo: updateTodoAPI,
+  markAsCompleted: markAsCompletedAPI,
+  markAsIncomplete: markAsIncompleteAPI,
+  deleteTodo: deleteTodoAPI,
+} = useTodosAPI();
 
-export const useTodoStore = defineStore('todo', () => {
+export const useTodoStore = defineStore("todo", () => {
+  const todos = ref<ResponseTodo[]>([]); // todoリスト配列
 
-    const todos = ref([
-        { text: 'Shopping', isCompleted: false },
-        { text: 'Rent Pay', isCompleted: false },
-        { text: 'Cleaning', isCompleted: false }
-    ]) // todoリスト配列
+  async function getAllTodos() {
+    const [gottenTodos, error] = await getAllTodosAPI();
+    if (error) return console.log("本当はエラーハンドリング");
+    todos.value = gottenTodos;
+  }
 
-    function addTodo(newTodo: string) { // todoを追加。追加ボタンをバインド
-        if (newTodo === '') return // TODO:バリデーション再考の余地
-        todos.value.push({text: newTodo, isCompleted: false})
+  async function addTodo(newTodo: string) {
+    // todoを追加。追加ボタンをバインド
+    if (newTodo === "") return;
+
+    const [registeredTodo, error] = await addToDoAPI({ title: newTodo });
+    if (error) return console.log("本当はエラーハンドリング");
+    todos.value.push(registeredTodo);
+  }
+
+  async function updateTodo(id: number, userInput: string) {
+    // todoを更新
+    const [updatedTodo, error] = await updateTodoAPI({
+      id,
+      title: userInput,
+    });
+    if (error) return console.log("本当はエラーハンドリング");
+
+    const targetTodo = todos.value.find((todo) => todo.id === updatedTodo.id);
+    if (targetTodo) {
+      targetTodo.title = updatedTodo.title;
     }
+  }
 
-    function updateTodo(index: number, userInput: string) { // todoを更新
-        todos.value[index].text = userInput
+  async function completeTodo(id: number) {
+    // todoを完了。済ボタンをバインド
+    const [markedAsCompletedTodo, error] = await markAsCompletedAPI({
+      id,
+    });
+    if (error) return console.log("本当はエラーハンドリング");
+
+    const targetTodo = todos.value.find(
+      (todo) => todo.id === markedAsCompletedTodo.id
+    );
+    if (targetTodo) {
+      targetTodo.isCompleted = markedAsCompletedTodo.isCompleted;
     }
+  }
 
-    function toggleTodo(index: number) { // todoを削除。済ボタンをバインド
-        todos.value[index].isCompleted = !todos.value[index].isCompleted
+  async function recoverTodo(id: number) {
+    // todoを未完了。未済ボタンをバインド
+    const [markedAsIncompleteTodo, error] = await markAsIncompleteAPI({
+      id,
+    });
+    if (error) return console.log("本当はエラーハンドリング");
+
+    const targetTodo = todos.value.find(
+      (todo) => todo.id === markedAsIncompleteTodo.id
+    );
+    if (targetTodo) {
+      targetTodo.isCompleted = markedAsIncompleteTodo.isCompleted;
     }
+  }
 
-    return { todos, addTodo, updateTodo, toggleTodo }
-})
+  async function deleteTodo(id: number) {
+    // todoを削除。削除ボタンをバインド
+    const [deletedTodo, error] = await deleteTodoAPI({
+      id,
+    });
+    if (error) return console.log("本当はエラーハンドリング");
+    const targetTodo = todos.value.find((todo) => todo.id === deletedTodo.id);
+    if (targetTodo) {
+      const index = todos.value.indexOf(targetTodo);
+      todos.value.splice(index, 1);
+    }
+  }
 
-
-
+  return {
+    todos,
+    getAllTodos,
+    addTodo,
+    updateTodo,
+    completeTodo,
+    recoverTodo,
+    deleteTodo,
+  };
+});

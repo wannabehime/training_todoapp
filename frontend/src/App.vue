@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TodoForm from './components/TodoForm.vue'
-import TodoList from './components/TodoList.vue'
+import TodoForm from "./components/TodoForm.vue";
+import TodoList from "./components/TodoList.vue";
 </script>
 
 <template>
@@ -8,6 +8,4 @@ import TodoList from './components/TodoList.vue'
   <TodoList />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

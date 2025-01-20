@@ -21,10 +21,8 @@ export default class TodosController {
   }
 
   @Post()
-  async addTodo(@Body() todoData: { title: string }): Promise<Todo> {
-    return this.todosService.addTodo({
-      title: todoData.title,
-    });
+  async addTodo(@Body('title') title: string): Promise<Todo> {
+    return this.todosService.addTodo(title);
   }
 
   @Patch(':id')

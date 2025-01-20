@@ -10,8 +10,10 @@ export class TodosService {
     return this.prisma.todo.findMany();
   }
 
-  async addTodo(data: Prisma.TodoCreateInput): Promise<Todo> {
-    return this.prisma.todo.create({ data });
+  async addTodo(title: string): Promise<Todo> {
+    return this.prisma.todo.create({
+      data: { title },
+    });
   }
 
   async updateTodo(id: number, title: string): Promise<Todo> {
